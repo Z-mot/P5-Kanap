@@ -1,0 +1,35 @@
+let api="http://localhost:3000/api/products"
+fetch(api)		
+	.then((res)=>res.json())
+	.catch((err)=>{
+		let erreur=document.getElementById("nos-produits")
+		.textContent="Erreur: Accès au serveur impossible ! Le contenu de la page ne peut pas être affiché!"
+	})
+	.then((data)=>{
+        console.log(data);
+        for (var i = 0; i <data.length; i++) {
+			
+            //Création des éléments comme commenté dans le code HTML
+			let carte_produit        	=document.getElementById('items');
+            let lien              		=document.createElement("a");
+            let carte					=document.createElement("article");
+            let image_produit			=document.createElement("img");
+            let nom_produit				=document.createElement("h3");
+            let descr_produit			=document.createElement("p");
+            
+			//Hiérarchisation des éléments avec la méthode "appendChild"
+			carte_produit.appendChild(lien); 
+			lien.href="produit.html?"+data[i]._id;
+            lien.appendChild(carte); 
+            carte.appendChild(image_produit);
+            image_produit.src       	=data[i].imageUrl;
+            carte.appendChild(nom_produit);
+            nom_produit.textContent   	=data[i].name;
+            carte.appendChild(descr_produit);
+            descr_produit.textContent 	=data[i].description;
+            console.log(i);
+            
+		}
+    });
+
+    
