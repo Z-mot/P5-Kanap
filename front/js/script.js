@@ -1,12 +1,16 @@
-let api="http://localhost:3000/api/products"
+let api="http://localhost:3000/api/products";
 fetch(api)		
 	.then((res)=>res.json())
 	.catch((err)=>{
-		let erreur=document.getElementById("items")
-		.textContent="Erreur: Accès au serveur impossible ! Le contenu de la page ne peut pas être affiché!"
+		let erreur=document.getElementById("items");
+		erreur.textContent="Erreur: Accès au serveur impossible ! Le contenu de la page ne peut pas être affiché!";
+        erreur.style.color= "red";
+        erreur.style.fontSize= "1.7vw";
+
 	})
 	.then((donneesViennentDuServeur)=>{
         console.log(donneesViennentDuServeur);
+        //création d'une boucle for permettant de récupérer chaque article de l'API 
         for (let index = 0; index <donneesViennentDuServeur.length; index++) {
 			
             //Création des éléments comme commenté dans le code HTML
