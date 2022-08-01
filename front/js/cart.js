@@ -53,10 +53,10 @@ function createPanier(__evt) {
         let cartItemContentSettingsQuantity = __evt.target.closest(".cart__item__content__settings__quantity");
         let quantity                        = cartItemContentSettingsQuantity.querySelector("input").value;
     let panier = {
-        color: color,
+        color   : color,
         // parseInt permet de transformer une chaine de caractère en nombre entier
         quantity: parseInt(quantity),
-        id: idProduct
+        id      : idProduct
     }
     return panier;
 }
@@ -153,9 +153,9 @@ function displayPanier() {
         //Ici nous utilisons la boucle forEach pour boucler sur chaque objet composant l'array
         objectArray.forEach(([key, panierDansLocalStorage]) => {
         //initialisation de la valeur de totalArticle avec la quantité du panier issu du local storage
-            totalArticle = totalArticle + panierDansLocalStorage.quantity;
+            totalArticle    = totalArticle + panierDansLocalStorage.quantity;
 
-            let promise = fetch(API_URL + panierDansLocalStorage.id, {
+            let promise     = fetch(API_URL + panierDansLocalStorage.id, {
                 method: "GET",
                     headers: {
                     'Accept': 'application/json', 
@@ -248,9 +248,9 @@ displayPanier();
 document.body.addEventListener('change', function (evt) {
     if (evt.target.className === 'itemQuantity') {
         //je récupère le panier dans le local storage
-        let monPanier = JSON.parse(localStorage.getItem("monPanier"));
+        let monPanier   = JSON.parse(localStorage.getItem("monPanier"));
         //ici, je créé mon panier
-        let panier = createPanier(evt);
+        let panier      = createPanier(evt);
         //et là j'ajoute ou je soustrait la quantité de l'article sélectionné
         updatePanier(panier, monPanier);
     }
@@ -259,9 +259,9 @@ document.body.addEventListener('change', function (evt) {
 document.body.addEventListener('click', function (evt) {
     if (evt.target.className === 'deleteItem') {
         //je récupère le panier dans le local storage
-        let monPanier = JSON.parse(localStorage.getItem("monPanier"));
+        let monPanier   = JSON.parse(localStorage.getItem("monPanier"));
         //ici, je créé mon panier
-        let panier = createPanier(evt);
+        let panier      = createPanier(evt);
         //et là je supprime l'article sélectionné de mon panier
         removePanier(panier, monPanier);
         //je met à jour l'état du bouton "valider" au cas ou tous les articles auraient été supprimés
@@ -272,26 +272,26 @@ document.body.addEventListener('click', function (evt) {
 
 
 //validation de données sur le champs "Préom"
-let firstName = document.getElementById("firstName");
+let firstName                                               = document.getElementById("firstName");
 firstName.addEventListener("focusout", function(e) {
-    let value = e.target.value;
+    let value                                               = e.target.value;
     //la méthode .trimStart() permet de supprimer les blancs au début de la chaine de caractère
-    value = value.trimStart();
+    value                                                   = value.trimStart();
     //la méthode .trimEnd() permet de supprimer les blancs à la fin de la chaine de caractère
-    value = value.trimEnd();
+    value                                                   = value.trimEnd();
     //si la valeur du champs correspond aux critère de la REGEX alors on vide l'élément contenant l'erreur
     if(value.match(/^[a-z ,.'-]+$/i)) {
         document.getElementById("firstNameErrorMsg").innerHTML = "";
         //on passe la première variable de vérification en "true"
-        isFirstNameIsTrue = true;
+        isFirstNameIsTrue                                   = true;
         //on exécute la fonction permettant de tester si tous le champs sont valide afin d'activer ou non le bouton "valider"
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        firstName.value = value;
+        firstName.value                                     = value;
         //on retourne la valeur du champs
         return value;
     }else{
         //on passe la première variable de vérification en "false"
-        isFirstNameIsTrue = false;
+        isFirstNameIsTrue                                   = false;
          //on exécute la fonction permettant de tester si tous le champs sont valide afin d'activer ou non le bouton "valider"
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
         //on affiche une erreur à l'utilisateur dans le champs erreur prévu à cette effet
@@ -300,91 +300,91 @@ firstName.addEventListener("focusout", function(e) {
 });
 
 //validation de données sur le champ "Nom"
-let lastName = document.getElementById("lastName");
+let lastName                                                = document.getElementById("lastName");
 lastName.addEventListener("focusout", function(e) {
-    let value = e.target.value;
-    value = value.trimStart();
-    value = value.trimEnd();
+    let value                                               = e.target.value;
+    value                                                   = value.trimStart();
+    value                                                   = value.trimEnd();
     if(value.match(/^^\D+[^@]+$/g)) {
         document.getElementById("lastNameErrorMsg").innerHTML = "";
-        isLastNameIsTrue = true;
+        isLastNameIsTrue                                    = true;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        lastName.value = value;
+        lastName.value                                      = value;
         return value;
     }else{
-        isLastNameIsTrue = false;
+        isLastNameIsTrue                                    = false;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
         document.getElementById("lastNameErrorMsg").innerHTML ="Entrez un nom valide! (pas de nombre ou de caractères spéciaux)";
     }
 });
 
 //validation de données sur le champ "Adresse"
-let address = document.getElementById("address");
+let address                                                 = document.getElementById("address");
 address.addEventListener("focusout", function(e) {
-    let value = e.target.value;
-    value = value.trimStart();
-    value = value.trimEnd();
+    let value                                               = e.target.value;
+    value                                                   = value.trimStart();
+    value                                                   = value.trimEnd();
     if(value.match(/^\w+[^@]+$/g)) {
         document.getElementById("addressErrorMsg").innerHTML = "";
-        isAddressIsTrue = true;
+        isAddressIsTrue                                     = true;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        address.value = value;
+        address.value                                       = value;
         return value;
     }else{
-        isAddressIsTrue = false;
+        isAddressIsTrue                                     = false;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
         document.getElementById("addressErrorMsg").innerHTML ="Entrez une addresse valide! (pas de caractères spéciaux)";
     }
 });
 
 //validation de données sur le champ "Ville"
-let city = document.getElementById("city");
+let city                                                    = document.getElementById("city");
 city.addEventListener("focusout", function(e) {
-    let value = e.target.value;
-    value = value.trimStart();
-    value = value.trimEnd();
+    let value                                               = e.target.value;
+    value                                                   = value.trimStart();
+    value                                                   = value.trimEnd();
     if(value.match(/^^\D+[^@]+$/g)) {
-        document.getElementById("cityErrorMsg").innerHTML = "";
-        isCityIsTrue = true;
+        document.getElementById("cityErrorMsg").innerHTML   = "";
+        isCityIsTrue                                        = true;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        city.value = value;
+        city.value                                          = value;
         return value;
     }else{
-        isCityIsTrue = false;
+        isCityIsTrue                                        = false;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        document.getElementById("cityErrorMsg").innerHTML ="Entrez un nom de ville valide! (pas de nombre ou de caractères spéciaux)";
+        document.getElementById("cityErrorMsg").innerHTML   ="Entrez un nom de ville valide! (pas de nombre ou de caractères spéciaux)";
     }
 });
 
 //validation de données sur le champ "Email"
-let email = document.getElementById("email");
+let email                                                   = document.getElementById("email");
 email.addEventListener("focusout", function(e) {
-    let value = e.target.value;
-    value = value.trimStart();
-    value = value.trimEnd();
+    let value                                               = e.target.value;
+    value                                                   = value.trimStart();
+    value                                                   = value.trimEnd();
     if(value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))+$/)){
-        document.getElementById("emailErrorMsg").innerHTML = "";
-        isEmailIsTrue = true;
+        document.getElementById("emailErrorMsg").innerHTML  = "";
+        isEmailIsTrue                                       = true;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        email.value = value;
+        email.value                                         = value;
         return value;
     }else{
-        isEmailIsTrue = false;
+        isEmailIsTrue                                       = false;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        document.getElementById("emailErrorMsg").innerHTML ="Entrez un nom de ville valide! (pas de nombre)";
+        document.getElementById("emailErrorMsg").innerHTML  ="Entrez un nom de ville valide! (pas de nombre)";
     }
     
 });
 
 document.getElementById("order").addEventListener("click", function(){
     //je déclare la variable contenant le local Storage
-    let newPanierLocalStorage = JSON.parse(localStorage.getItem("monPanier"));
+    let newPanierLocalStorage   = JSON.parse(localStorage.getItem("monPanier"));
     //je crée un tableau vide
-    let products = [];
+    let products                = [];
     //si le local Storage n'est pas vide
-    if(newPanierLocalStorage != null) {
+    if(newPanierLocalStorage    != null) {
         //je déclare une constante stockant monPanier (issu du Local Storage) transformé en tableau
-        const paniers = Object.entries(newPanierLocalStorage);
+        const paniers           = Object.entries(newPanierLocalStorage);
         //je boucle sur tous les articles de paniers
         paniers.forEach(([key, panierDansLocalStorage]) => {
             //je teste si la quantité du panierDansLeLocalStorage est positive
@@ -421,13 +421,13 @@ document.getElementById("order").addEventListener("click", function(){
             j'ai besoin du numéro de commande "order.Id" pour l'intégrer dans l'URL de la page de confirmation*/
             promise.then(async(res)=>{
                 try{
-                    const retourServeur=await res.json();
-                    document.location.href="confirmation.html?orderId="+ retourServeur.orderId;
+                    const retourServeur     = await res.json();
+                    document.location.href  = "confirmation.html?orderId="+ retourServeur.orderId;
                 }
                 //correspond à la capture de l'erreur et l'affichage adéquat pour l'utilisateur de cette dernière
                 catch(e){
                     let erreur=document.getElementById("cart__items");
-                    erreur.textContent      ="Erreur: Accès au serveur impossible ! La commande n'a pas abouti !";
+                    erreur.textContent      = "Erreur: Accès au serveur impossible ! La commande n'a pas abouti !";
                     erreur.style.color      = "red";
                     erreur.style.fontSize   = "1.7vw";
                 }
