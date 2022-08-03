@@ -271,7 +271,7 @@ document.body.addEventListener('click', function (evt) {
 
 
 
-//validation de données sur le champs "Préom"
+//validation de données sur le champs "Prénom"
 let firstName                                               = document.getElementById("firstName");
 firstName.addEventListener("focusout", function(e) {
     let value                                               = e.target.value;
@@ -371,7 +371,7 @@ email.addEventListener("focusout", function(e) {
     }else{
         isEmailIsTrue                                       = false;
         displayBtn(isFirstNameIsTrue, isLastNameIsTrue, isAddressIsTrue, isCityIsTrue, isEmailIsTrue);
-        document.getElementById("emailErrorMsg").innerHTML  ="Entrez un nom de ville valide! (pas de nombre)";
+        document.getElementById("emailErrorMsg").innerHTML  ="Entrez un email valide!";
     }
     
 });
