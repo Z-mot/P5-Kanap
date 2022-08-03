@@ -90,11 +90,10 @@ btnAdd.addEventListener("click",function(){
 	}
 	
 	//si le nouveau panier n'a pas de couleur et quantité, je dis à l'utilisateur de les mentionner 
-	if(panier.color == "" || panier.quantity == 0) {
-		alert("Choissiez une couleur et/ou une quantité");
+	if(panier.color == "" || (panier.quantity < 1 || panier.quantity > 100) ) {
+		alert("Choissiez une couleur et/ou une quantité comprise entre 1 et 100");
 		return false;
 	}else{
-		
 		//si mon panier ne contient pas quelque chose, c'est à dire vide
 		if(!monPanier) {
 			//je crée un clé du produit, composé de l'id et la couleur que j'encode
@@ -115,6 +114,13 @@ btnAdd.addEventListener("click",function(){
 				let monNouveauPanier 	= monPanier[keyProduit];
 				monNouveauPanier.quantity += parseInt(panier.quantity);
 				monPanier[keyProduit] 	= monNouveauPanier;
+				//si cette clé keyProduit a une quantité supérieur à 100 alors je la fixe à 100
+				if(monPanier[keyProduit].quantity > 100) {
+					monPanier[keyProduit].quantity = 100;
+				//sinon je prends la quantité dans mon panier
+				}else{
+					monPanier[keyProduit];
+				}
 			}else{
 				//sinon j'ajoute le panier 
 				monPanier[keyProduit] 	= panier;

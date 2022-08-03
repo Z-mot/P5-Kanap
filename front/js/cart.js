@@ -120,7 +120,6 @@ function updatePanier(__panier, __monPanier) {
             difference                  = monAncienPanier.quantity - __panier.quantity;
             monAncienPanier.quantity    = monAncienPanier.quantity - difference;
         }
-
         __monPanier[keyProduit] 	    = monAncienPanier; 
     }
     updateLocalStorage(__monPanier);
@@ -246,13 +245,32 @@ function displayPanier() {
 displayPanier();
 
 document.body.addEventListener('change', function (evt) {
-    if (evt.target.className === 'itemQuantity') {
-        //je récupère le panier dans le local storage
+    let value = evt.target.value;
+    //si la quantité est bien un nombre entre 1 et 100, j'exécute la suite du code
+    if(value.match(/^[1-9]$|^[1-9][0-9]$|^(100)$/)) {
+        if (evt.target.className === 'itemQuantity') {
+            //je récupère le panier dans le local storage
+            let monPanier   = JSON.parse(localStorage.getItem("monPanier"));
+            //ici, je créé mon panier
+            let panier      = createPanier(evt);
+            //et là j'ajoute ou je soustrait la quantité de l'article sélectionné
+            updatePanier(panier, monPanier);
+        }
+    //sinon j'éxécute ce code pour le supérieur à 100 et inférieur à 1
+    }else{
         let monPanier   = JSON.parse(localStorage.getItem("monPanier"));
         //ici, je créé mon panier
         let panier      = createPanier(evt);
-        //et là j'ajoute ou je soustrait la quantité de l'article sélectionné
-        updatePanier(panier, monPanier);
+        //si la quantité de mon article est supérieur à 100 je met ma quantité égale à 100 (le maximum)
+        if(panier.quantity > 100) {
+            panier.quantity = 100;
+            updatePanier(panier, monPanier);
+        }else{
+            //sinon je met ma quantité égale à 1(le minimum)
+            panier.quantity = 1;
+            updatePanier(panier, monPanier);
+        }
+
     }
 });
 
